@@ -82,6 +82,7 @@ footer a{text-decoration:none;direction:ltr;unicode-bidi:isolate}
 .qt{display:block;font-weight:700;font-size:17px;line-height:1.75;margin:0 0 6px;padding:0}
 .opt{font-weight:400;font-size:13.5px;color:var(--muted);margin-right:6px;white-space:nowrap}
 .qd{color:var(--muted);font-size:14.5px;line-height:1.85;margin:-2px 0 10px}
+input[type=text]::placeholder,textarea::placeholder{color:#a79e95;opacity:1}
 input[type=text],textarea{width:100%;font:400 16.5px/1.9 "Vazirmatn FD",Tahoma,sans-serif;color:var(--ink);background:#fff;border:2px solid var(--edge);border-radius:14px;padding:11px 14px;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none}
 textarea{min-height:132px;resize:vertical;display:block}
 input[type=text]:focus,textarea:focus{border-color:var(--ink)}
@@ -163,7 +164,7 @@ var PAGES = [
       od: ['نفری ' + PRICE_EACH + '. هر کدوم بدون دیدن نوشته‌ی اون یکی می‌نویسه و یه جواب مشترک می‌گیرید.', PRICE_SOLO + '. جواب فقط بر اساس روایت خودته و طبیعتاً یه طرف ماجرا رو می‌بینه.'] },
     { id: CODE, k: 'short', req: true, when: 'couple', q: 'کلمه‌ی رمز مشترک', d: 'یه کلمه که با پارتنرت قرار گذاشتید و هر دو دقیقاً همون رو می‌نویسید تا دو روایت به هم وصل بشه. مثلاً اسم اولین کافه‌ای که با هم رفتید.' },
     { id: NAME, k: 'short', req: true, q: 'اسم یا اسم مستعار تو', d: 'فقط برای این‌که تو جواب بدونیم کدوم روایت مال کیه. می‌تونه مستعار باشه.', ds: 'می‌تونه مستعار باشه.' },
-    { id: '162638802', k: 'short', req: true, q: 'راه ارتباطی برای فرستادن جواب', d: 'آیدی اینستاگرام یا ایمیل خودت. جواب برای هر کدوم‌تون جدا فرستاده می‌شه.', ds: 'آیدی اینستاگرام یا ایمیل خودت. جواب به همین‌جا فرستاده می‌شه.' },
+    { id: '162638802', k: 'short', req: true, q: 'آیدی تلگرامت', ph: '@username', d: 'جواب تو تلگرام برای هر کدوم‌تون جدا فرستاده می‌شه. اگه یوزرنیم نداری، شماره‌ای که تلگرامت باهاش ساخته شده رو بنویس.', ds: 'جواب تو تلگرام برات فرستاده می‌شه. اگه یوزرنیم نداری، شماره‌ای که تلگرامت باهاش ساخته شده رو بنویس.' },
     { id: '1733918240', k: 'radio', req: true, q: 'چند وقته با همید؟', o: ['کمتر از ۶ ماه', '۶ ماه تا ۲ سال', '۲ تا ۵ سال', 'بیشتر از ۵ سال'] },
     { id: '94127848', k: 'radio', req: false, q: 'شکل رابطه‌تون', o: ['در رابطه‌ایم', 'نامزد یا عقد کرده‌ایم', 'ازدواج کرده‌ایم و با هم زندگی می‌کنیم', 'جدا شده‌ایم ولی هنوز در ارتباطیم'] },
     { id: '2078511567', k: 'radio', req: true, q: 'این دعوا، یا دعوایی شبیهش، چند وقت یه بار تکرار می‌شه؟', o: ['اولین بار بود', 'چند ماه یه بار', 'ماهی یکی دو بار', 'هفته‌ای یکی دو بار', 'تقریباً هر روز'] },
@@ -312,7 +313,7 @@ function renderHome() {
       '<li><b>انتخاب کن</b>اول فرم می‌پرسه دو نفره می‌نویسید یا یک نفره.</li>' +
       '<li><b>بنویس</b>دو نفره: با پارتنرت سر یه کلمه‌ی رمز و این‌که درباره‌ی کدوم دعوا می‌نویسید قرار بذارید، فقط اسم دعوا نه جزئیاتش، و هر کدوم روی گوشی خودش پر کنه. یک نفره: خودت می‌نویسی. حدود ۲۰ دقیقه وقت می‌بره و هر چی بنویسی روی همون گوشی نگه داشته می‌شه تا وقتی بفرستیش.</li>' +
       '<li><b>پرداخت</b>هزینه رو کارت‌به‌کارت می‌کنی و عکس رسید رو برای ربات تلگرام می‌فرستی.</li>' +
-      '<li><b>جواب</b>یه جواب مکتوب می‌گیری: باگ رابطه‌تون، این‌که از کجا میاد، و چند تا پچ برای شروع.</li>' +
+      '<li><b>جواب</b>یه جواب مکتوب تو تلگرام می‌گیری: باگ رابطه‌تون، این‌که از کجا میاد، و چند تا پچ برای شروع.</li>' +
     '</ol>' +
     '<h2>چند تا چیز که خوبه بدونی</h2>' +
     '<ul class="bul">' +
@@ -336,7 +337,7 @@ function qHtml(q) {
   var err = '<p class="err">' + (q.k === 'check' && q.id === CONSENT ? 'برای ادامه این رو تیک بزن.' : 'این سؤال لازمه.') + '</p>';
   if (q.k === 'short' || q.k === 'long') {
     var field = q.k === 'short'
-      ? '<input type="text" id="' + fid + '" data-id="' + q.id + '" dir="auto" autocomplete="off"' + (q.num ? ' inputmode="numeric"' : '') + (desc ? ' aria-describedby="d' + q.id + '"' : '') + '>'
+      ? '<input type="text" id="' + fid + '" data-id="' + q.id + '" dir="auto" autocomplete="off"' + (q.num ? ' inputmode="numeric"' : '') + (q.ph ? ' placeholder="' + esc(q.ph) + '"' : '') + (desc ? ' aria-describedby="d' + q.id + '"' : '') + '>'
       : '<textarea id="' + fid + '" data-id="' + q.id + '" dir="auto" rows="' + (q.tall ? 7 : 4) + '"' + (desc ? ' aria-describedby="d' + q.id + '"' : '') + '></textarea>';
     return '<div class="q" data-q="' + q.id + '"><label class="qt" for="' + fid + '">' + esc(qText(q)) + optTag(q) + '</label>' + d + field + err + '</div>';
   }
@@ -546,8 +547,8 @@ function renderPay() {
     (code ? '<div class="pill"><strong dir="auto">' + esc(code) + '</strong><button class="btn light" data-act="copycode">کپی</button></div>' : '') +
     '<a class="btn block" href="https://t.me/' + BOT + '" target="_blank" rel="noopener">' + TG + 'باز کردن ربات تلگرام</a></div>';
   html += '<p>' + (solo
-      ? 'وقتی پرداخت تأیید شد، جواب به همون راه ارتباطی‌ای که نوشتی فرستاده می‌شه.'
-      : 'وقتی هر دو روایت رسید و پرداخت تأیید شد، جواب مشترک‌تون به همون راه ارتباطی‌ای که نوشتید فرستاده می‌شه.') + '</p>' +
+      ? 'وقتی پرداخت تأیید شد، جواب تو تلگرام، به همون آیدی‌ای که نوشتی، فرستاده می‌شه.'
+      : 'وقتی هر دو روایت رسید و پرداخت تأیید شد، جواب مشترک‌تون تو تلگرام، به آیدی‌هایی که نوشتید، فرستاده می‌شه.') + '</p>' +
     '<button class="linkbtn" data-act="home">برگشت به صفحه‌ی اول</button>' + FOOT;
   app.innerHTML = html;
   bindActs();
@@ -557,7 +558,7 @@ function renderSafe() {
   app.innerHTML =
     '<div class="okhead">' + CHECK + '<h1>روایتت رسید</h1></div>' +
     '<p>از چیزی که تو بخش خصوصی نوشتی، فکر می‌کنیم دیباگ رابطه الان کمک مناسبی برای شما نیست. وقتی تو یه رابطه ترس، تهدید یا آسیب هست، اول از همه امنیت خودت مهمه، نه پیدا کردن باگ.</p>' +
-    '<p>برای همین لازم نیست هزینه‌ای پرداخت کنی. ما خودمون از راه ارتباطی‌ای که نوشتی، فقط با خودت در تماس می‌گیریم.</p>' +
+    '<p>برای همین لازم نیست هزینه‌ای پرداخت کنی. ما خودمون تو تلگرام، فقط با خودت، در تماس می‌گیریم.</p>' +
     '<div class="card help"><h3>اگه الان احساس خطر می‌کنی</h3><ul>' +
       '<li>اورژانس اجتماعی: <a href="tel:123">۱۲۳</a></li>' +
       '<li>صدای مشاور بهزیستی: <a href="tel:1480">۱۴۸۰</a></li>' +
