@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>دیباگ رابطه | فروغمند</title>
-<meta name="description" content="یه دعوا، دو روایت. هر کدوم جدا روایت خودش رو می‌نویسه و ما باگ رابطه‌تون رو بر اساس پژوهش پیدا می‌کنیم.">
+<meta name="description" content="یه دعوا، دو روایت. دو نفره یا یک نفره روایت یه دعوای واقعی رو بنویس و باگ رابطه‌ت رو بر اساس پژوهش بشناس.">
 <meta name="theme-color" content="#f6e3d6">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fa_IR">
 <meta property="og:title" content="دیباگ رابطه | یه دعوا، دو روایت">
-<meta property="og:description" content="هر کدوم جدا روایت خودش رو از یه دعوا می‌نویسه؛ ما باگ رابطه‌تون رو بر اساس پژوهش پیدا می‌کنیم.">
+<meta property="og:description" content="دو نفره یا یک نفره روایت یه دعوای واقعی رو بنویس؛ ما باگ رابطه‌ت رو بر اساس پژوهش پیدا می‌کنیم.">
 <meta property="og:url" content="https://foorooghmandarian-bit.github.io/debug/">
 <meta property="og:image" content="https://foorooghmandarian-bit.github.io/debug/og.png">
 <meta property="og:image:width" content="1200">
@@ -33,7 +33,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Vazirmatn FD",T
 a{color:inherit}
 button{font:inherit}
 .wrap{max-width:600px;margin:0 auto;padding:0 20px calc(28px + env(safe-area-inset-bottom))}
-.mark{display:block;text-align:center;font-weight:900;font-size:15px;padding-top:22px;letter-spacing:0;opacity:.9;text-decoration:none}
+.mark{display:block;text-align:center;font-weight:900;font-size:15px;padding-top:22px;opacity:.9;text-decoration:none}
 .kicker{font-weight:700;font-size:17px;margin:26px 0 0}
 .display{font-weight:900;font-size:clamp(56px,17vw,92px);line-height:1.04;margin:2px 0 14px;letter-spacing:-.5px}
 .lead{font-size:17.5px;margin:0 0 6px}
@@ -47,7 +47,6 @@ p{margin:0 0 12px}
 .btn.ghost{background:transparent;color:var(--ink)}
 .btn.light{background:var(--paper);color:var(--ink)}
 .btn.block{display:flex;width:100%}
-.btn[disabled]{opacity:.55;cursor:default}
 .btn svg{flex:none}
 .linkbtn{background:none;border:0;padding:6px 2px;color:var(--muted);text-decoration:underline;text-underline-offset:4px;cursor:pointer;font-size:15px}
 .cta{margin:22px 0 6px}
@@ -58,9 +57,12 @@ p{margin:0 0 12px}
 .steps li{position:relative;padding:0 52px 0 0;margin:0 0 20px;counter-increment:s}
 .steps li::before{content:counter(s,persian);position:absolute;right:0;top:2px;width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;line-height:1}
 .steps b{display:block;font-weight:900;font-size:18px;line-height:1.5}
-.price{display:flex;flex-direction:column;gap:2px;text-align:center;background:var(--c2)}
-.price .lbl{font-weight:700}
-.price .amt{font-weight:900;font-size:34px;line-height:1.4}
+.modes{display:grid;gap:12px;margin:0 0 6px}
+.mode{border:2px solid var(--ink);border-radius:22px;padding:16px 18px;box-shadow:0 4px 0 var(--ink)}
+.mode h3{font-weight:900;font-size:21px;margin:0 0 2px;line-height:1.5}
+.mode .pr{font-weight:900;font-size:26px;line-height:1.5;margin:0 0 4px}
+.mode .pr small{font-weight:700;font-size:15px;color:var(--muted)}
+.mode p{margin:0;font-size:15.5px}
 .bul{margin:0;padding:0 20px 0 0}
 .bul li{margin:0 0 8px}
 .banner{background:var(--c1);display:flex;flex-direction:column;gap:10px}
@@ -86,6 +88,8 @@ input[type=text]:focus,textarea:focus{border-color:var(--ink)}
 .choice{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border:2px solid var(--edge);border-radius:14px;background:#fff;margin:0 0 8px;cursor:pointer;line-height:1.75;-webkit-tap-highlight-color:transparent}
 .choice input{flex:none;width:20px;height:20px;margin:5px 0 0;accent-color:var(--ink)}
 .choice.sel{border-color:var(--ink);background:#fff6ec}
+.choice .od{display:block;font-size:14px;color:var(--muted);line-height:1.7;margin-top:2px}
+.choice.big b{font-weight:900;font-size:17.5px}
 .err{display:none;color:var(--bad);font-size:14px;margin:6px 0 0}
 .q.bad .err{display:block}
 .q.bad input[type=text],.q.bad textarea,.q.bad .choice{border-color:var(--bad)}
@@ -99,7 +103,8 @@ input[type=text]:focus,textarea:focus{border-color:var(--ink)}
 .okhead svg{flex:none}
 .cardno{direction:ltr;unicode-bidi:isolate;text-align:center;font-weight:900;font-size:clamp(24px,7.4vw,32px);letter-spacing:1.5px;margin:10px 0 4px;white-space:nowrap}
 .cardname{text-align:center;font-weight:700;margin:0 0 14px}
-.pill{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:2px solid var(--edge);border-radius:14px;padding:8px 8px 8px 8px;margin:6px 0 14px}
+.amount{text-align:center;font-weight:900;font-size:28px;line-height:1.5;margin:0 0 2px}
+.pill{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:2px solid var(--edge);border-radius:14px;padding:8px;margin:6px 0 14px}
 .pill strong{font-weight:900;font-size:18px;padding:0 8px;overflow-wrap:anywhere}
 .pill .btn{min-height:42px;padding:0 16px;font-size:15px}
 .cardA{background:var(--c4)}
@@ -118,7 +123,7 @@ input[type=text]:focus,textarea:focus{border-color:var(--ink)}
 .alert{background:#fff;border:2px solid var(--bad);color:var(--bad);border-radius:14px;padding:12px 14px;margin:0 0 14px;font-size:15px;display:none}
 .alert.show{display:block}
 :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
-@media (min-width:640px){.wrap{padding-left:28px;padding-right:28px}}
+@media (min-width:640px){.wrap{padding-left:28px;padding-right:28px}.modes{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -136,26 +141,35 @@ var ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeKMVm19QeLKz7OdW5h7TOpWj
 var CARD = '6219861055646920';
 var CARD_SHOW = '6219 8610 5564 6920';
 var CARD_NAME = 'پرستو ثابتی';
-var PRICE = '۱٬۵۰۰٬۰۰۰ تومان';
+var PRICE_SOLO = '۱٬۵۰۰٬۰۰۰ تومان';
+var PRICE_EACH = '۱٬۰۰۰٬۰۰۰ تومان';
+var PRICE_BOTH = '۲٬۰۰۰٬۰۰۰ تومان';
 var BOT = 'residepoll_bot';
 var IG = 'foorooghmand';
-var K_DRAFT = 'debugRabete.draft.v1';
-var K_DONE = 'debugRabete.done.v1';
+var K_DRAFT = 'debugRabete.draft.v2';
+var K_DONE = 'debugRabete.done.v2';
+var MODE = '1265513981';
+var OPT_COUPLE = 'دو نفره — هر کدوم جدا می‌نویسیم';
+var OPT_SOLO = 'یک نفره — فقط خودم می‌نویسم';
 var CODE = '1724147879';
 var NAME = '1470998279';
+var CONSENT = '730887496';
 var DANGER = '1865380735';
 var NONE = 'هیچ‌کدوم';
 
 var PAGES = [
   { t: 'شروع', c: 'c0', items: [
-    { id: '1724147879', k: 'short', req: true, q: 'کلمه‌ی رمز مشترک', d: 'یه کلمه که با پارتنرت قرار گذاشتید و هر دو دقیقاً همون رو می‌نویسید تا دو روایت به هم وصل بشه. مثلاً اسم اولین کافه‌ای که با هم رفتید.' },
-    { id: '1470998279', k: 'short', req: true, q: 'اسم یا اسم مستعار تو', d: 'فقط برای این‌که تو جواب بدونیم کدوم روایت مال کیه. می‌تونه مستعار باشه.' },
-    { id: '162638802', k: 'short', req: true, q: 'راه ارتباطی برای فرستادن جواب', d: 'آیدی اینستاگرام یا ایمیل خودت. جواب برای هر کدوم‌تون جدا فرستاده می‌شه.' },
+    { id: MODE, k: 'radio', req: true, big: true, q: 'یک نفره یا دو نفره؟', o: [OPT_COUPLE, OPT_SOLO],
+      od: ['نفری ' + PRICE_EACH + '. هر کدوم بدون دیدن نوشته‌ی اون یکی می‌نویسه و یه جواب مشترک می‌گیرید.', PRICE_SOLO + '. جواب فقط بر اساس روایت خودته و طبیعتاً یه طرف ماجرا رو می‌بینه.'] },
+    { id: CODE, k: 'short', req: true, when: 'couple', q: 'کلمه‌ی رمز مشترک', d: 'یه کلمه که با پارتنرت قرار گذاشتید و هر دو دقیقاً همون رو می‌نویسید تا دو روایت به هم وصل بشه. مثلاً اسم اولین کافه‌ای که با هم رفتید.' },
+    { id: NAME, k: 'short', req: true, q: 'اسم یا اسم مستعار تو', d: 'فقط برای این‌که تو جواب بدونیم کدوم روایت مال کیه. می‌تونه مستعار باشه.', ds: 'می‌تونه مستعار باشه.' },
+    { id: '162638802', k: 'short', req: true, q: 'راه ارتباطی برای فرستادن جواب', d: 'آیدی اینستاگرام یا ایمیل خودت. جواب برای هر کدوم‌تون جدا فرستاده می‌شه.', ds: 'آیدی اینستاگرام یا ایمیل خودت. جواب به همین‌جا فرستاده می‌شه.' },
     { id: '1733918240', k: 'radio', req: true, q: 'چند وقته با همید؟', o: ['کمتر از ۶ ماه', '۶ ماه تا ۲ سال', '۲ تا ۵ سال', 'بیشتر از ۵ سال'] },
     { id: '94127848', k: 'radio', req: false, q: 'شکل رابطه‌تون', o: ['در رابطه‌ایم', 'نامزد یا عقد کرده‌ایم', 'ازدواج کرده‌ایم و با هم زندگی می‌کنیم', 'جدا شده‌ایم ولی هنوز در ارتباطیم'] },
     { id: '2078511567', k: 'radio', req: true, q: 'این دعوا، یا دعوایی شبیهش، چند وقت یه بار تکرار می‌شه؟', o: ['اولین بار بود', 'چند ماه یه بار', 'ماهی یکی دو بار', 'هفته‌ای یکی دو بار', 'تقریباً هر روز'] },
     { id: '1490546252', k: 'short', req: false, q: 'سن', num: true },
-    { id: '730887496', k: 'check', req: true, q: 'قبل از شروع', d: 'برای ادامه لازمه این رو تأیید کنی.', o: ['می‌دونم جواب مشترکه، برای هر دومون یکسان فرستاده می‌شه و ممکنه از جمله‌های من توش نقل بشه.'] },
+    { id: CONSENT, k: 'check', req: true, when: 'chosen', q: 'قبل از شروع', d: 'برای ادامه لازمه این رو تیک بزنی.',
+      o: ['می‌دونم جواب مشترکه، برای هر دومون یکسان فرستاده می‌شه و ممکنه از جمله‌های من توش نقل بشه.', 'می‌دونم جواب فقط بر اساس روایت خودم نوشته می‌شه و یه طرف ماجرا رو می‌بینه.'], oWhen: ['couple', 'solo'] },
     { id: '372166139', k: 'check', req: false, q: 'اگه موافقی تیک بزن', o: ['موافقم روایتم، با حذف کامل مشخصات و تغییر جزئیات شناسایی‌کننده، تو ویدیوهای دیباگ رابطه استفاده بشه.', 'موافقم جواب‌هام به‌صورت ناشناس برای پژوهش علمی استفاده بشه.'] }
   ] },
   { t: 'یک — فیلم دعوا', d: 'فقط اتفاق‌ها، به ترتیب؛ مثل دوربینی که فقط ضبط می‌کنه.', c: 'c1', items: [
@@ -178,7 +192,7 @@ var PAGES = [
   ] },
   { t: 'چهار — سهم من', c: 'c4', items: [
     { id: '563259522', k: 'long', req: true, q: 'کاری که خودت تو این دعوا کردی و اگه برگردی عقب عوضش می‌کردی؟' },
-    { id: '1369465186', k: 'long', req: false, q: 'اگه پارتنرت این فرم رو پر کنه، درباره‌ی تو چی می‌نویسه؟' },
+    { id: '1369465186', k: 'long', req: false, q: 'اگه پارتنرت این فرم رو پر کنه، درباره‌ی تو چی می‌نویسه؟', qs: 'اگه پارتنرت این فرم رو پر می‌کرد، درباره‌ی تو چی می‌نوشت؟' },
     { id: '630382071', k: 'long', req: true, q: 'وقتی پارتنرت اون کار رو کرد، تو دلت گفتی «چون…»؟ جمله رو کامل کن.', d: 'مثلاً: «چون براش مهم نیستم»، «چون خسته بود»، «چون همیشه همین‌طوره».' }
   ] },
   { t: 'پنج — داستان بزرگ‌تر', c: 'c5', items: [
@@ -188,8 +202,8 @@ var PAGES = [
     { id: '767929883', k: 'long', req: true, q: 'تو این رابطه دوست داری چه آدمی باشی؟ تو این دعوا چقدر اون آدم بودی؟' },
     { id: '1735883450', k: 'long', req: false, q: 'از این جواب چی می‌خوای؟' }
   ] },
-  { t: 'خصوصی', d: 'این بخش فقط برای ماست؛ هیچ‌وقت به پارتنرت نشون داده نمی‌شه و تو جواب مشترک هم نمیاد.', c: 'c6', items: [
-    { id: '1865380735', k: 'check', req: true, q: 'تو این رابطه تا حالا کدوم‌ها پیش اومده؟', o: ['هل دادن، زدن یا پرت کردن چیزی', 'تهدید (به آسیب، به ترک کردن، به آبروریزی)', 'کنترل پول، گوشی یا رفت‌وآمدم', 'از پارتنرم می‌ترسم', 'هیچ‌کدوم'] },
+  { t: 'خصوصی', d: 'این بخش فقط برای ماست؛ هیچ‌وقت به پارتنرت نشون داده نمی‌شه و تو جواب مشترک هم نمیاد.', ds: 'این بخش فقط برای ماست و تو جواب نمیاد.', c: 'c6', items: [
+    { id: DANGER, k: 'check', req: true, q: 'تو این رابطه تا حالا کدوم‌ها پیش اومده؟', o: ['هل دادن، زدن یا پرت کردن چیزی', 'تهدید (به آسیب، به ترک کردن، به آبروریزی)', 'کنترل پول، گوشی یا رفت‌وآمدم', 'از پارتنرم می‌ترسم', 'هیچ‌کدوم'] },
     { id: '375466156', k: 'long', req: false, q: 'اگه چیزی هست که می‌خوای فقط ما بدونیم، این‌جا بنویس.' }
   ] }
 ];
@@ -224,6 +238,11 @@ function copy(text, okMsg) {
 }
 function siteUrl() { return location.origin + location.pathname; }
 function scrollTop() { try { window.scrollTo({ top: 0 }); } catch (e) { window.scrollTo(0, 0); } }
+function soloCode() {
+  var n;
+  try { var a = new Uint32Array(1); window.crypto.getRandomValues(a); n = a[0] % 9000 + 1000; } catch (e) { n = Math.floor(Math.random() * 9000) + 1000; }
+  return 'تکی ' + fa(n);
+}
 
 /* ---------- state ---------- */
 var answers = {};
@@ -235,6 +254,9 @@ if (draft && draft.answers && typeof draft.answers === 'object') {
   answers = draft.answers;
   step = Math.max(0, Math.min(PAGES.length - 1, draft.step | 0));
 }
+function modeOf() { var v = answers[MODE]; return v === OPT_SOLO ? 'solo' : v === OPT_COUPLE ? 'couple' : null; }
+function visible(q) { if (!q.when) return true; var m = modeOf(); return q.when === 'chosen' ? !!m : m === q.when; }
+function optVisible(q, i) { return !q.oWhen || q.oWhen[i] === modeOf(); }
 function hasDraft() {
   for (var k in answers) {
     var v = answers[k];
@@ -278,22 +300,26 @@ function renderHome() {
     (done && done.code ? '<div class="card banner" style="margin-top:22px"><b>روایتت رو فرستادی.</b><span class="small">اگه هنوز پرداخت نکردی یا رسید رو نفرستادی، اطلاعاتش این‌جاست.</span><button class="btn light" data-act="pay">پرداخت و فرستادن رسید</button></div>' : '') +
     '<p class="kicker">یه دعوا، دو روایت</p>' +
     '<h1 class="display">دیباگ رابطه</h1>' +
-    '<p class="lead">هر کدوم از شما، تنهایی و بدون دیدن نوشته‌ی اون یکی، روایت خودش رو از یه دعوای واقعی‌تون می‌نویسه. ما دو روایت رو کنار هم می‌ذاریم، جایی که از هم جدا می‌شن رو پیدا می‌کنیم و بر اساس پژوهش، اسم باگ رابطه‌تون رو بهتون می‌گیم؛ با چند تا پچ، یعنی تمرین‌هایی که مخصوص الگوی خود شماست.</p>' +
+    '<p class="lead">یه دعوای واقعی‌تون رو مثل یه فیلم تعریف می‌کنی. ما از دل روایت، الگویی که هی تکرار می‌شه رو پیدا می‌کنیم و بر اساس پژوهش، اسم باگ رابطه‌تون رو بهتون می‌گیم؛ با چند تا پچ، یعنی تمرین‌هایی که مخصوص الگوی خود شماست.</p>' +
     ART + ctaHtml +
+    '<h2>دو نفره یا یک نفره؟</h2>' +
+    '<div class="modes">' +
+      '<div class="mode" style="background:var(--c4)"><h3>دو نفره</h3><p class="pr">نفری ' + PRICE_EACH + '</p><p>هر کدوم از شما، تنهایی و بدون دیدن نوشته‌ی اون یکی، روایت خودش رو از همون یه دعوا می‌نویسه. ما دو روایت رو کنار هم می‌ذاریم؛ باگ درست همون‌جاییه که دو روایت از هم جدا می‌شن. جواب مشترکه و برای هر دوتون یکسان فرستاده می‌شه.</p></div>' +
+      '<div class="mode" style="background:var(--c2)"><h3>یک نفره</h3><p class="pr">' + PRICE_SOLO + '</p><p>اگه پارتنرت نمی‌خواد یا نمی‌تونه بنویسه، خودت تنهایی می‌نویسی. جواب بر اساس روایت خودت نوشته می‌شه و طبیعتاً یه طرف ماجرا رو می‌بینه؛ برای همین دو نفره دقیق‌تره.</p></div>' +
+    '</div>' +
     '<h2>چطوری کار می‌کنه؟</h2>' +
     '<ol class="steps">' +
-      '<li><b>قرار بذارید</b>با پارتنرت سر دو تا چیز توافق کنید: یه کلمه‌ی رمز، و این‌که درباره‌ی کدوم دعوا می‌نویسید. فقط اسم دعوا رو قرار بذارید، نه جزئیاتش رو.</li>' +
-      '<li><b>جدا بنویسید</b>هر کدوم روی گوشی خودش فرم رو پر کنه. حدود ۲۰ دقیقه وقت می‌بره و هر چی بنویسی روی همون گوشی نگه داشته می‌شه تا وقتی بفرستیش.</li>' +
-      '<li><b>یه بار پرداخت</b>یکی‌تون هزینه رو کارت‌به‌کارت پرداخت می‌کنه و عکس رسید رو برای ربات تلگرام می‌فرسته.</li>' +
-      '<li><b>جواب مشترک</b>یه جواب مکتوب، یکسان برای هر دوتون فرستاده می‌شه: باگ رابطه‌تون، این‌که از کجا میاد، و چند تا پچ برای شروع.</li>' +
+      '<li><b>انتخاب کن</b>اول فرم می‌پرسه دو نفره می‌نویسید یا یک نفره.</li>' +
+      '<li><b>بنویس</b>دو نفره: با پارتنرت سر یه کلمه‌ی رمز و این‌که درباره‌ی کدوم دعوا می‌نویسید قرار بذارید، فقط اسم دعوا نه جزئیاتش، و هر کدوم روی گوشی خودش پر کنه. یک نفره: خودت می‌نویسی. حدود ۲۰ دقیقه وقت می‌بره و هر چی بنویسی روی همون گوشی نگه داشته می‌شه تا وقتی بفرستیش.</li>' +
+      '<li><b>پرداخت</b>هزینه رو کارت‌به‌کارت می‌کنی و عکس رسید رو برای ربات تلگرام می‌فرستی.</li>' +
+      '<li><b>جواب</b>یه جواب مکتوب می‌گیری: باگ رابطه‌تون، این‌که از کجا میاد، و چند تا پچ برای شروع.</li>' +
     '</ol>' +
-    '<div class="card price"><span class="lbl">هزینه</span><span class="amt">' + PRICE + '</span><span class="small">برای هر زوج، یک بار. بعد از پر کردن فرم پرداخت می‌کنی.</span></div>' +
     '<h2>چند تا چیز که خوبه بدونی</h2>' +
     '<ul class="bul">' +
       '<li>جواب درست و غلط نداره؛ همون‌طور که حرف می‌زنی بنویس.</li>' +
-      '<li>متن کامل پارتنرت رو نمی‌بینی، اون هم متن تو رو نمی‌بینه، مگه هر دوتون بخواید. ولی تو جواب مشترک ممکنه از جمله‌های خودتون نقل کنیم.</li>' +
+      '<li>تو حالت دو نفره، متن کامل پارتنرت رو نمی‌بینی و اون هم متن تو رو نمی‌بینه، مگه هر دوتون بخواید. ولی تو جواب مشترک ممکنه از جمله‌های خودتون نقل کنیم.</li>' +
       '<li>هر چیزی که بشه باهاش شناخت‌تون، هیچ‌جا منتشر نمی‌شه.</li>' +
-      '<li>این جواب درمان نیست؛ یه نگاه دقیقه به یه دعوا، از دو طرف.</li>' +
+      '<li>این جواب درمان نیست؛ یه نگاه دقیقه به یه دعوا.</li>' +
     '</ul>' +
     ctaHtml + FOOT;
   bindActs();
@@ -301,47 +327,53 @@ function renderHome() {
 
 /* ---------- form ---------- */
 function optTag(q) { return q.req ? '' : '<span class="opt">(اختیاری)</span>'; }
+function qText(q) { return modeOf() === 'solo' && q.qs ? q.qs : q.q; }
+function qDesc(q) { return modeOf() === 'solo' && q.ds ? q.ds : q.d; }
 function qHtml(q) {
   var fid = 'f' + q.id;
-  var d = q.d ? '<p class="qd" id="d' + q.id + '">' + esc(q.d) + '</p>' : '';
-  var err = '<p class="err">' + (q.k === 'check' && q.id === '730887496' ? 'برای ادامه این رو تیک بزن.' : 'این سؤال لازمه.') + '</p>';
+  var desc = qDesc(q);
+  var d = desc ? '<p class="qd" id="d' + q.id + '">' + esc(desc) + '</p>' : '';
+  var err = '<p class="err">' + (q.k === 'check' && q.id === CONSENT ? 'برای ادامه این رو تیک بزن.' : 'این سؤال لازمه.') + '</p>';
   if (q.k === 'short' || q.k === 'long') {
     var field = q.k === 'short'
-      ? '<input type="text" id="' + fid + '" data-id="' + q.id + '" dir="auto" autocomplete="off"' + (q.num ? ' inputmode="numeric"' : '') + (q.d ? ' aria-describedby="d' + q.id + '"' : '') + '>'
-      : '<textarea id="' + fid + '" data-id="' + q.id + '" dir="auto" rows="' + (q.tall ? 7 : 4) + '"' + (q.d ? ' aria-describedby="d' + q.id + '"' : '') + '></textarea>';
-    return '<div class="q" data-q="' + q.id + '"><label class="qt" for="' + fid + '">' + esc(q.q) + optTag(q) + '</label>' + d + field + err + '</div>';
+      ? '<input type="text" id="' + fid + '" data-id="' + q.id + '" dir="auto" autocomplete="off"' + (q.num ? ' inputmode="numeric"' : '') + (desc ? ' aria-describedby="d' + q.id + '"' : '') + '>'
+      : '<textarea id="' + fid + '" data-id="' + q.id + '" dir="auto" rows="' + (q.tall ? 7 : 4) + '"' + (desc ? ' aria-describedby="d' + q.id + '"' : '') + '></textarea>';
+    return '<div class="q" data-q="' + q.id + '"><label class="qt" for="' + fid + '">' + esc(qText(q)) + optTag(q) + '</label>' + d + field + err + '</div>';
   }
   var type = q.k === 'radio' ? 'radio' : 'checkbox';
   var opts = q.o.map(function (o, i) {
-    return '<label class="choice"><input type="' + type + '" name="' + fid + '" data-id="' + q.id + '" data-i="' + i + '"><span>' + esc(o) + '</span></label>';
+    if (!optVisible(q, i)) return '';
+    var label = q.od ? '<b>' + esc(o) + '</b><span class="od">' + esc(q.od[i]) + '</span>' : esc(o);
+    return '<label class="choice' + (q.big ? ' big' : '') + '"><input type="' + type + '" name="' + fid + '" data-id="' + q.id + '" data-i="' + i + '"><span>' + label + '</span></label>';
   }).join('');
-  return '<fieldset class="q" data-q="' + q.id + '"><legend class="qt">' + esc(q.q) + optTag(q) + '</legend>' + d + opts + err + '</fieldset>';
+  return '<fieldset class="q" data-q="' + q.id + '"><legend class="qt">' + esc(qText(q)) + optTag(q) + '</legend>' + d + opts + err + '</fieldset>';
 }
 function findQ(id) {
   for (var p = 0; p < PAGES.length; p++) for (var j = 0; j < PAGES[p].items.length; j++) if (PAGES[p].items[j].id === id) return PAGES[p].items[j];
   return null;
 }
 function grow(t) { t.style.height = 'auto'; t.style.height = Math.max(t.scrollHeight + 4, 0) + 'px'; }
-function renderStep(i) {
+function renderStep(i, keepScroll) {
   step = i;
   var p = PAGES[i];
   var n = PAGES.length;
   var prog = '';
   for (var s = 0; s < n; s++) prog += '<span class="' + (s <= i ? 'on' : '') + '"></span>';
+  var pd = modeOf() === 'solo' && p.ds ? p.ds : p.d;
+  var shown = p.items.filter(visible);
   app.innerHTML =
     '<div class="prog" aria-hidden="true">' + prog + '</div>' +
-    '<div class="stephead" style="background:var(--' + p.c + ')"><div class="no">بخش ' + fa(i + 1) + ' از ' + fa(n) + '</div><h1>' + esc(p.t) + '</h1>' + (p.d ? '<p>' + esc(p.d) + '</p>' : '') + '</div>' +
-    (i === 0 ? '<div class="intro">این فرم رو تنها پر کن، بدون این‌که نسخه‌ی پارتنرت رو ببینی. همه‌ی فرم درباره‌ی همون یه دعواییه که با هم قرار گذاشتید. هر چی می‌نویسی روی همین گوشی ذخیره می‌شه؛ اگه صفحه بسته شد، دوباره که بیای از همون‌جا ادامه می‌دی.</div>' : '') +
+    '<div class="stephead" style="background:var(--' + p.c + ')"><div class="no">بخش ' + fa(i + 1) + ' از ' + fa(n) + '</div><h1>' + esc(p.t) + '</h1>' + (pd ? '<p>' + esc(pd) + '</p>' : '') + '</div>' +
+    (i === 0 ? '<div class="intro">همه‌ی فرم درباره‌ی همون یه دعواست. جواب درست و غلط نداره؛ همون‌طور که حرف می‌زنی بنویس. هر چی می‌نویسی روی همین گوشی ذخیره می‌شه؛ اگه صفحه بسته شد، دوباره که بیای از همون‌جا ادامه می‌دی.</div>' : '') +
     '<div class="alert" id="alert"></div>' +
-    p.items.map(qHtml).join('') +
+    shown.map(qHtml).join('') +
     '<div class="nav">' +
       '<button class="btn ghost" data-act="back">' + (i === 0 ? 'برگشت' : 'قبلی') + '</button>' +
       '<button class="btn next" data-act="next">' + (i === n - 1 ? 'فرستادن روایت' : 'بعدی') + '</button>' +
     '</div>' +
     '<p class="saved" id="saved"></p>';
   savedEl = document.getElementById('saved');
-  // fill values
-  p.items.forEach(function (q) {
+  shown.forEach(function (q) {
     var v = answers[q.id];
     if (q.k === 'short' || q.k === 'long') {
       var f = document.getElementById('f' + q.id);
@@ -369,7 +401,7 @@ function renderStep(i) {
     b.addEventListener('change', function () { onChoice(b); });
   });
   saveDraft(true);
-  scrollTop();
+  if (!keepScroll) scrollTop();
 }
 function clearBad(node) {
   var q = node.closest('.q'); if (q) q.classList.remove('bad');
@@ -395,17 +427,28 @@ function onChoice(b) {
     Array.prototype.forEach.call(boxes, function (x) { if (x.checked) vals.push(q.o[+x.getAttribute('data-i')]); });
     answers[id] = vals;
   }
+  if (id === MODE) {
+    // The mode decides which questions and consent line are shown, so start those afresh.
+    answers[CONSENT] = [];
+    if (modeOf() === 'solo') delete answers[CODE];
+    var y = window.scrollY;
+    renderStep(step, true);
+    window.scrollTo(0, y);
+    return;
+  }
   Array.prototype.forEach.call(boxes, function (x) { x.parentNode.classList.toggle('sel', x.checked); });
   clearBad(b);
   saveDraft();
 }
 function filled(q) {
   var v = answers[q.id];
-  return Array.isArray(v) ? v.length > 0 : (typeof v === 'string' && v.trim().length > 0);
+  if (Array.isArray(v)) return v.some(function (x) { var i = q.o.indexOf(x); return i >= 0 && optVisible(q, i); });
+  return typeof v === 'string' && v.trim().length > 0;
 }
 function validate(i) {
   var first = null;
   PAGES[i].items.forEach(function (q) {
+    if (!visible(q)) return;
     var node = app.querySelector('[data-q="' + q.id + '"]');
     var bad = q.req && !filled(q);
     node.classList.toggle('bad', bad);
@@ -422,17 +465,22 @@ function validate(i) {
 
 /* ---------- submit ---------- */
 var sending = false;
+var pendingCode = null;
 function submit() {
   if (sending) return;
   sending = true;
+  var solo = modeOf() === 'solo';
+  if (solo && !pendingCode) pendingCode = soloCode();
   var body = new URLSearchParams();
   PAGES.forEach(function (p) {
     p.items.forEach(function (q) {
+      if (!visible(q)) return;
       var v = answers[q.id];
-      if (Array.isArray(v)) v.forEach(function (x) { body.append('entry.' + q.id, x); });
+      if (Array.isArray(v)) v.forEach(function (x) { var i = q.o.indexOf(x); if (i >= 0 && optVisible(q, i)) body.append('entry.' + q.id, x); });
       else if (typeof v === 'string' && v.trim()) body.append('entry.' + q.id, v.trim());
     });
   });
+  if (solo) body.append('entry.' + CODE, pendingCode);
   body.append('fvv', '1');
   body.append('pageHistory', PAGES.map(function (_, i) { return i; }).join(','));
   var alertEl = document.getElementById('alert');
@@ -443,7 +491,7 @@ function submit() {
   fetch(ACTION, { method: 'POST', mode: 'no-cors', body: body, signal: ctl ? ctl.signal : undefined })
     .then(function () {
       clearTimeout(timer); sending = false; overlay.classList.remove('show');
-      afterSubmit();
+      afterSubmit(solo ? pendingCode : String(answers[CODE] || '').trim());
     }, function () {
       clearTimeout(timer); sending = false; overlay.classList.remove('show');
       var a = document.getElementById('alert');
@@ -454,20 +502,20 @@ function submit() {
       }
     });
 }
-function afterSubmit() {
+function afterSubmit(code) {
   var danger = answers[DANGER] || [];
   var flagged = danger.some(function (x) { return x !== NONE; });
   submitted = true;
   if (flagged) {
     store.del(K_DRAFT); store.del(K_DONE);
-    answers = {}; step = 0; lastDone = null;
+    answers = {}; step = 0; lastDone = null; pendingCode = null;
     history.replaceState({ v: 'safe' }, '');
     renderSafe();
   } else {
-    lastDone = { code: String(answers[CODE] || '').trim(), name: String(answers[NAME] || '').trim(), t: Date.now() };
+    lastDone = { code: code, name: String(answers[NAME] || '').trim(), mode: modeOf() || 'couple', t: Date.now() };
     store.set(K_DONE, lastDone);
     store.del(K_DRAFT);
-    answers = {}; step = 0;
+    answers = {}; step = 0; pendingCode = null;
     history.replaceState({ v: 'pay' }, '');
     renderPay();
   }
@@ -477,20 +525,31 @@ function afterSubmit() {
 function renderPay() {
   var done = store.get(K_DONE) || lastDone || {};
   var code = done.code || '';
-  app.innerHTML =
+  var solo = done.mode === 'solo';
+  var n = 0;
+  function num() { n++; return fa(n) + '. '; }
+  var html =
     '<a class="mark" href="https://instagram.com/' + IG + '" target="_blank" rel="noopener">فروغمند</a>' +
     '<div class="okhead">' + CHECK + '<h1>روایتت رسید</h1></div>' +
-    '<p>مرسی که وقت گذاشتی و نوشتی. حالا این‌ها مونده:</p>' +
-    '<div class="card cardA"><h3>۱. روایت پارتنرت</h3><p>اگه پارتنرت هنوز ننوشته، لینک همین صفحه رو براش بفرست. همون کلمه‌ی رمز رو بنویسه تا دو روایت به هم وصل بشن.</p><button class="btn block light" data-act="share">فرستادن لینک برای پارتنرم</button></div>' +
-    '<div class="card cardB"><h3>۲. پرداخت</h3><p>' + PRICE + ' رو به این کارت واریز کن:</p>' +
-      '<div class="cardno">' + CARD_SHOW + '</div><p class="cardname">به نام ' + esc(CARD_NAME) + '</p>' +
-      '<button class="btn block" data-act="copycard">کپی شماره کارت</button>' +
-      '<p class="small" style="margin:12px 0 0">برای هر زوج یک بار؛ اگه پارتنرت پرداخت کرده، لازم نیست تو هم پرداخت کنی.</p></div>' +
-    '<div class="card cardC"><h3>۳. فرستادن رسید</h3><p>عکس رسید رو تو تلگرام برای ربات <span dir="ltr">@' + BOT + '</span> بفرست و زیرش کلمه‌ی رمزتون رو بنویس:</p>' +
-      (code ? '<div class="pill"><strong dir="auto">' + esc(code) + '</strong><button class="btn light" data-act="copycode">کپی</button></div>' : '') +
-      '<a class="btn block" href="https://t.me/' + BOT + '" target="_blank" rel="noopener">' + TG + 'باز کردن ربات تلگرام</a></div>' +
-    '<p>وقتی هر دو روایت رسید و پرداخت تأیید شد، جواب مشترک‌تون به همون راه ارتباطی‌ای که نوشتید فرستاده می‌شه.</p>' +
+    '<p>مرسی که وقت گذاشتی و نوشتی. حالا این‌ها مونده:</p>';
+  if (!solo) {
+    html += '<div class="card cardA"><h3>' + num() + 'روایت پارتنرت</h3><p>اگه پارتنرت هنوز ننوشته، لینک همین صفحه رو براش بفرست. همون کلمه‌ی رمز رو بنویسه تا دو روایت به هم وصل بشن.</p><button class="btn block light" data-act="share">فرستادن لینک برای پارتنرم</button></div>';
+  }
+  html += '<div class="card cardB"><h3>' + num() + 'پرداخت</h3>' +
+    (solo
+      ? '<p class="amount">' + PRICE_SOLO + '</p><p class="small" style="text-align:center;margin:0 0 10px">هزینه‌ی دیباگ یک نفره</p>'
+      : '<p class="amount">نفری ' + PRICE_EACH + '</p><p class="small" style="text-align:center;margin:0 0 10px">می‌تونی فقط سهم خودت رو بدی، یا هر دو سهم رو یک‌جا (' + PRICE_BOTH + ').</p>') +
+    '<p>به این کارت واریز کن:</p>' +
+    '<div class="cardno">' + CARD_SHOW + '</div><p class="cardname">به نام ' + esc(CARD_NAME) + '</p>' +
+    '<button class="btn block" data-act="copycard">کپی شماره کارت</button></div>';
+  html += '<div class="card cardC"><h3>' + num() + 'فرستادن رسید</h3><p>عکس رسید رو تو تلگرام برای ربات <span dir="ltr">@' + BOT + '</span> بفرست و زیرش ' + (solo ? 'این کد' : 'کلمه‌ی رمزتون') + ' رو بنویس:</p>' +
+    (code ? '<div class="pill"><strong dir="auto">' + esc(code) + '</strong><button class="btn light" data-act="copycode">کپی</button></div>' : '') +
+    '<a class="btn block" href="https://t.me/' + BOT + '" target="_blank" rel="noopener">' + TG + 'باز کردن ربات تلگرام</a></div>';
+  html += '<p>' + (solo
+      ? 'وقتی پرداخت تأیید شد، جواب به همون راه ارتباطی‌ای که نوشتی فرستاده می‌شه.'
+      : 'وقتی هر دو روایت رسید و پرداخت تأیید شد، جواب مشترک‌تون به همون راه ارتباطی‌ای که نوشتید فرستاده می‌شه.') + '</p>' +
     '<button class="linkbtn" data-act="home">برگشت به صفحه‌ی اول</button>' + FOOT;
+  app.innerHTML = html;
   bindActs();
   scrollTop();
 }
@@ -518,7 +577,7 @@ function startForm() {
 }
 function bindActs() {
   app.querySelectorAll('[data-act]').forEach(function (b) {
-    b.addEventListener('click', function (e) {
+    b.addEventListener('click', function () {
       var act = b.getAttribute('data-act');
       if (act === 'start') startForm();
       else if (act === 'reset') {
@@ -536,7 +595,7 @@ function bindActs() {
       else if (act === 'pay') { history.pushState({ v: 'pay' }, ''); renderPay(); }
       else if (act === 'home') { history.replaceState({ v: 'home' }, ''); renderHome(); scrollTop(); }
       else if (act === 'copycard') copy(CARD, 'شماره کارت کپی شد');
-      else if (act === 'copycode') { var d = store.get(K_DONE) || lastDone || {}; copy(d.code || '', 'کلمه‌ی رمز کپی شد'); }
+      else if (act === 'copycode') { var d = store.get(K_DONE) || lastDone || {}; copy(d.code || '', (d.mode === 'solo' ? 'کد' : 'کلمه‌ی رمز') + ' کپی شد'); }
       else if (act === 'share') sharePartner();
       else if (act === 'exit') { try { location.replace('https://www.google.com/'); } catch (e2) { location.href = 'https://www.google.com/'; } }
     });
