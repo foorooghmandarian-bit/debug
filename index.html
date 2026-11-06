@@ -145,7 +145,7 @@ var CARD_NAME = 'پرستو ثابتی';
 var PRICE_SOLO = '۱٬۵۰۰٬۰۰۰ تومان';
 var PRICE_EACH = '۱٬۰۰۰٬۰۰۰ تومان';
 var PRICE_BOTH = '۲٬۰۰۰٬۰۰۰ تومان';
-var BOT = 'residepoll_bot';
+var RECEIPT_TG = 'Parastoosabeti';
 var IG = 'foorooghmand';
 var K_DRAFT = 'debugRabete.draft.v2';
 var K_DONE = 'debugRabete.done.v2';
@@ -543,17 +543,35 @@ function renderPay() {
     '<p>به این کارت واریز کن:</p>' +
     '<div class="cardno">' + CARD_SHOW + '</div><p class="cardname">به نام ' + esc(CARD_NAME) + '</p>' +
     '<button class="btn block" data-act="copycard">کپی شماره کارت</button></div>';
-  html += '<div class="card cardC"><h3>' + num() + 'فرستادن رسید</h3><p>عکس رسید رو تو تلگرام برای ربات <span dir="ltr">@' + BOT + '</span> بفرست و زیرش ' + (solo ? 'این کد' : 'کلمه‌ی رمزتون') + ' رو بنویس:</p>' +
+  html += '<div class="card cardC"><h3>' + num() + 'فرستادن رسید</h3>' +
+    (solo ? '' :
+      '<fieldset class="q" style="margin:0 0 14px"><legend class="qt">کدوم رو واریز کردی؟</legend>' +
+      '<label class="choice sel"><input type="radio" name="amt" value="سهم یک نفر (' + PRICE_EACH + ')" checked><span>سهم خودم: ' + PRICE_EACH + '</span></label>' +
+      '<label class="choice"><input type="radio" name="amt" value="هر دو سهم (' + PRICE_BOTH + ')"><span>هر دو سهم: ' + PRICE_BOTH + '</span></label></fieldset>') +
+    '<p>دکمه‌ی پایین تلگرام رو باز می‌کنه. عکس رسید رو همون‌جا برای <span dir="ltr">@' + RECEIPT_TG + '</span> بفرست و زیرش ' + (solo ? 'این کد' : 'کلمه‌ی رمزتون') + ' رو بنویس:</p>' +
     (code ? '<div class="pill"><strong dir="auto">' + esc(code) + '</strong><button class="btn light" data-act="copycode">کپی</button></div>' : '') +
-    '<a class="btn block" href="https://t.me/' + BOT + '" target="_blank" rel="noopener">' + TG + 'باز کردن ربات تلگرام</a></div>';
+    '<a class="btn block" id="tglink" href="' + tgLink(done, solo ? 'یک نفره (' + PRICE_SOLO + ')' : 'سهم یک نفر (' + PRICE_EACH + ')') + '" target="_blank" rel="noopener">' + TG + 'فرستادن رسید تو تلگرام</a>' +
+    '<p class="small muted" style="margin:10px 0 0">اگه تلگرام باز نشد، تو تلگرام <span dir="ltr">@' + RECEIPT_TG + '</span> رو سرچ کن و رسید رو اون‌جا بفرست.</p></div>';
   html += '<p>' + (solo
       ? 'وقتی پرداخت تأیید شد، جواب تو تلگرام، به همون آیدی‌ای که نوشتی، فرستاده می‌شه.'
       : 'وقتی هر دو روایت رسید و پرداخت تأیید شد، جواب مشترک‌تون تو تلگرام، به آیدی‌هایی که نوشتید، فرستاده می‌شه.') + '</p>' +
     '<button class="linkbtn" data-act="home">برگشت به صفحه‌ی اول</button>' + FOOT;
   app.innerHTML = html;
   bindActs();
+  app.querySelectorAll('input[name=amt]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      app.querySelectorAll('input[name=amt]').forEach(function (x) { x.parentNode.classList.toggle('sel', x.checked); });
+      var a = document.getElementById('tglink');
+      if (a) a.href = tgLink(done, r.value);
+    });
+  });
   scrollTop();
 }
+function tgLink(done, amount) {
+  var text = 'رسید دیباگ رابطه\nکد: ' + (done.code || '') + '\nاسم: ' + (done.name || '') + '\nمبلغ: ' + amount;
+  return 'https://t.me/' + RECEIPT_TG + '?text=' + encodeURIComponent(text);
+}
+
 function renderSafe() {
   app.innerHTML =
     '<div class="okhead">' + CHECK + '<h1>روایتت رسید</h1></div>' +
@@ -598,6 +616,7 @@ function bindActs() {
       else if (act === 'copycard') copy(CARD, 'شماره کارت کپی شد');
       else if (act === 'copycode') { var d = store.get(K_DONE) || lastDone || {}; copy(d.code || '', (d.mode === 'solo' ? 'کد' : 'کلمه‌ی رمز') + ' کپی شد'); }
       else if (act === 'share') sharePartner();
+
       else if (act === 'exit') { try { location.replace('https://www.google.com/'); } catch (e2) { location.href = 'https://www.google.com/'; } }
     });
   });
