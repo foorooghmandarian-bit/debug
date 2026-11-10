@@ -142,9 +142,11 @@ var ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeKMVm19QeLKz7OdW5h7TOpWj
 var CARD = '6219861055646920';
 var CARD_SHOW = '6219 8610 5564 6920';
 var CARD_NAME = 'پرستو ثابتی';
-var PRICE_SOLO = '۱٬۵۰۰٬۰۰۰ تومان';
-var PRICE_EACH = '۱٬۰۰۰٬۰۰۰ تومان';
-var PRICE_BOTH = '۲٬۰۰۰٬۰۰۰ تومان';
+var PRICE_SOLO = '۱٬۰۰۰٬۰۰۰ تومان';
+var PRICE_EACH = '۷۵۰٬۰۰۰ تومان';
+var PRICE_BOTH = '۱٬۵۰۰٬۰۰۰ تومان';
+var PRICE_Q = '۳۰۰٬۰۰۰ تومان';
+var Q_DAYS = '۳۰';
 var BOT_TG = 'residepoll_bot';
 var IG = 'foorooghmand';
 var K_DRAFT = 'debugRabete.draft.v2';
@@ -161,7 +163,7 @@ var NONE = 'هیچ‌کدوم';
 var PAGES = [
   { t: 'شروع', c: 'c0', items: [
     { id: MODE, k: 'radio', req: true, big: true, q: 'یک نفره یا دو نفره؟', o: [OPT_COUPLE, OPT_SOLO],
-      od: ['نفری ' + PRICE_EACH + '. هر کدوم بدون دیدن نوشته‌ی اون یکی می‌نویسه و یه جواب مشترک می‌گیرید.', PRICE_SOLO + '. جواب فقط بر اساس روایت خودته و طبیعتاً یه طرف ماجرا رو می‌بینه.'] },
+      od: [PRICE_BOTH + ' برای هر دو نفر. هر کدوم بدون دیدن نوشته‌ی اون یکی می‌نویسه و یه جواب مشترک می‌گیرید.', PRICE_SOLO + '. جواب فقط بر اساس روایت خودته و طبیعتاً یه طرف ماجرا رو می‌بینه.'] },
     { id: CODE, k: 'short', req: true, when: 'couple', q: 'کلمه‌ی رمز مشترک', d: 'یه کلمه که با پارتنرت قرار گذاشتید و هر دو دقیقاً همون رو می‌نویسید تا دو روایت به هم وصل بشه. مثلاً اسم اولین کافه‌ای که با هم رفتید.' },
     { id: NAME, k: 'short', req: true, q: 'اسم یا اسم مستعار تو', d: 'فقط برای این‌که تو جواب بدونیم کدوم روایت مال کیه. می‌تونه مستعار باشه.', ds: 'می‌تونه مستعار باشه.' },
     { id: '162638802', k: 'short', req: true, q: 'آیدی تلگرامت', ph: '@username', d: 'جواب تو تلگرام برای هر کدوم‌تون جدا فرستاده می‌شه. اگه یوزرنیم نداری، شماره‌ای که تلگرامت باهاش ساخته شده رو بنویس.', ds: 'جواب تو تلگرام برات فرستاده می‌شه. اگه یوزرنیم نداری، شماره‌ای که تلگرامت باهاش ساخته شده رو بنویس.' },
@@ -321,7 +323,7 @@ function renderHome() {
     ART + ctaHtml +
     '<h2>دو نفره یا یک نفره؟</h2>' +
     '<div class="modes">' +
-      '<div class="mode" style="background:var(--c4)"><h3>دو نفره</h3><p class="pr">نفری ' + PRICE_EACH + '</p><p>هر کدوم از شما، تنهایی و بدون دیدن نوشته‌ی اون یکی، روایت خودش رو از رابطه و از همون یه دعوا می‌نویسه. ما دو روایت رو کنار هم می‌ذاریم؛ باگ درست همون‌جاییه که دو روایت از هم جدا می‌شن. جواب مشترکه و برای هر دوتون یکسان فرستاده می‌شه.</p></div>' +
+      '<div class="mode" style="background:var(--c4)"><h3>دو نفره</h3><p class="pr">' + PRICE_BOTH + ' برای هر دو نفر</p><p>هر کدوم از شما، تنهایی و بدون دیدن نوشته‌ی اون یکی، روایت خودش رو از رابطه و از همون یه دعوا می‌نویسه. ما دو روایت رو کنار هم می‌ذاریم؛ باگ درست همون‌جاییه که دو روایت از هم جدا می‌شن. جواب مشترکه و برای هر دوتون یکسان فرستاده می‌شه.</p></div>' +
       '<div class="mode" style="background:var(--c2)"><h3>یک نفره</h3><p class="pr">' + PRICE_SOLO + '</p><p>اگه پارتنرت نمی‌خواد یا نمی‌تونه بنویسه، خودت تنهایی می‌نویسی. جواب بر اساس روایت خودت نوشته می‌شه و طبیعتاً یه طرف ماجرا رو می‌بینه؛ برای همین دو نفره دقیق‌تره.</p></div>' +
     '</div>' +
     '<h2>چطوری کار می‌کنه؟</h2>' +
@@ -330,6 +332,7 @@ function renderHome() {
       '<li><b>بنویس</b>دو نفره: با پارتنرت سر یه کلمه‌ی رمز و این‌که درباره‌ی کدوم دعوا می‌نویسید قرار بذارید، فقط اسم دعوا نه جزئیاتش، و هر کدوم روی گوشی خودش پر کنه. یک نفره: خودت می‌نویسی. حدود ۴۰ دقیقه وقت می‌بره و هر چی بنویسی روی همون گوشی نگه داشته می‌شه تا وقتی بفرستیش.</li>' +
       '<li><b>پرداخت</b>هزینه رو کارت‌به‌کارت می‌کنی و عکس رسید رو برای ربات تلگرام می‌فرستی.</li>' +
       '<li><b>جواب</b>جواب رو تو تلگرام می‌گیری: یه فایلِ کامل با مدلِ رابطه‌ت، مشکلات، الگوهاش، و راه‌حل‌ها و تمرین‌هایی برای شروع.</li>' +
+      '<li><b>سؤال</b>اگه بعد از خوندنِ فایل سؤالی برات موند، تا ' + Q_DAYS + ' روز می‌تونی یه دور سؤال بپرسی (' + PRICE_Q + ') و جوابش رو تو یه صفحه‌ی PDF بگیری. <button class="linkbtn" data-act="soal" style="padding:0">پرسیدنِ سؤال</button></li>' +
     '</ol>' +
     '<h2>چند تا چیز که خوبه بدونی</h2>' +
     '<ul class="bul">' +
@@ -554,7 +557,7 @@ function renderPay() {
   html += '<div class="card cardB"><h3>' + num() + 'پرداخت</h3>' +
     (solo
       ? '<p class="amount">' + PRICE_SOLO + '</p><p class="small" style="text-align:center;margin:0 0 10px">هزینه‌ی دیباگ یک نفره</p>'
-      : '<p class="amount">نفری ' + PRICE_EACH + '</p><p class="small" style="text-align:center;margin:0 0 10px">می‌تونی فقط سهم خودت رو بدی، یا هر دو سهم رو یک‌جا (' + PRICE_BOTH + ').</p>') +
+      : '<p class="amount">' + PRICE_BOTH + '</p><p class="small" style="text-align:center;margin:0 0 10px">برای هر دو نفر. می‌تونی فقط سهمِ خودت (' + PRICE_EACH + ') رو بدی، یا کلش رو یک‌جا.</p>') +
     '<p>به این کارت واریز کن:</p>' +
     '<div class="cardno">' + CARD_SHOW + '</div><p class="cardname">به نام ' + esc(CARD_NAME) + '</p>' +
     '<button class="btn block" data-act="copycard">کپی شماره کارت</button></div>';
@@ -591,6 +594,40 @@ function botLink(done, kind) {
   var start = 'r' + kind + '_' + b64url(String(done.code || '').trim());
   if (start.length > 64) start = 'r' + kind + '_';
   return 'https://t.me/' + BOT_TG + '?start=' + start;
+}
+
+/* ---------- a round of questions after the file ---------- */
+function renderSoal(code) {
+  var d = store.get(K_DONE) || lastDone || {};
+  code = String(code || d.code || '').trim();
+  app.innerHTML =
+    '<a class="mark" href="https://instagram.com/' + IG + '" target="_blank" rel="noopener">فروغمند</a>' +
+    '<p class="kicker">بعد از فایل</p>' +
+    '<h1 class="display" style="font-size:clamp(44px,13vw,72px)">سؤال داری؟</h1>' +
+    '<p class="lead">اگه بعد از خوندنِ فایلت سؤالی برات مونده، می‌تونی یه دور سؤال بپرسی: همه‌ی سؤال‌هات رو با هم تو یه پیام می‌نویسی و جوابش رو به‌صورت یه صفحه‌ی PDF تو تلگرام می‌گیری.</p>' +
+    '<div class="card cardB"><h3>۱. پرداخت</h3>' +
+      '<p class="amount">' + PRICE_Q + '</p><p class="small" style="text-align:center;margin:0 0 10px">هزینه‌ی یه دور سؤال</p>' +
+      '<p>به این کارت واریز کن:</p>' +
+      '<div class="cardno">' + CARD_SHOW + '</div><p class="cardname">به نام ' + esc(CARD_NAME) + '</p>' +
+      '<button class="btn block" data-act="copycard">کپی شماره کارت</button></div>' +
+    '<div class="card cardC"><h3>۲. فرستادنِ رسید و سؤال‌ها</h3>' +
+      '<div class="q" style="margin:0 0 14px"><label class="qt" for="qcode">کد یا کلمه‌ی رمزت</label>' +
+      '<p class="qd">همونی که تو فرم نوشتی؛ پایینِ صفحه‌های فایلت هم هست.</p>' +
+      '<input type="text" id="qcode" dir="auto" autocomplete="off" value="' + esc(code) + '"></div>' +
+      '<p>دکمه‌ی پایین ربات تلگرام ما رو باز می‌کنه. اون‌جا <span dir="ltr">Start</span> (شروع) رو بزن، عکس رسید رو بفرست، بعد همه‌ی سؤال‌هات رو با هم تو یه پیام بنویس.</p>' +
+      '<a class="btn block" id="tglink" href="' + botLink({ code: code }, 'q') + '" target="_blank" rel="noopener">' + TG + 'فرستادن رسید و سؤال‌ها به ربات</a>' +
+      '<p class="small muted" style="margin:10px 0 0">اگه تلگرام باز نشد، تو تلگرام <span dir="ltr">@' + BOT_TG + '</span> رو سرچ کن، <span dir="ltr">/soal</span> رو بفرست و بعد رسید و سؤال‌هات رو.</p></div>' +
+    '<h2>چند تا چیز که خوبه بدونی</h2>' +
+    '<ul class="bul">' +
+      '<li>تا ' + Q_DAYS + ' روز بعد از گرفتنِ فایل می‌تونی بپرسی.</li>' +
+      '<li>سؤال‌ها درباره‌ی همین فایل و همین رابطه‌ست. برای یه دعوای تازه یا یه اتفاقِ بزرگِ جدید، یه تحلیلِ تازه بهتره.</li>' +
+      '<li>تو حالت دو نفره، از روایتِ پارتنرت چیزی بیشتر از اون‌چه تو فایلِ مشترک اومده بهت گفته نمی‌شه.</li>' +
+    '</ul>' +
+    '<button class="linkbtn" data-act="home">برگشت به صفحه‌ی اول</button>' + FOOT;
+  bindActs();
+  var inp = document.getElementById('qcode'), a = document.getElementById('tglink');
+  inp.addEventListener('input', function () { a.href = botLink({ code: inp.value }, 'q'); });
+  scrollTop();
 }
 
 function renderSafe() {
@@ -633,7 +670,8 @@ function bindActs() {
         else { step--; renderStep(step); }
       }
       else if (act === 'pay') { history.pushState({ v: 'pay' }, ''); renderPay(); }
-      else if (act === 'home') { history.replaceState({ v: 'home' }, ''); renderHome(); scrollTop(); }
+      else if (act === 'home') { history.replaceState({ v: 'home' }, '', location.pathname); renderHome(); scrollTop(); }
+      else if (act === 'soal') { history.pushState({ v: 'soal', c: '' }, ''); renderSoal(''); }
       else if (act === 'copycard') copy(CARD, 'شماره کارت کپی شد');
       else if (act === 'copycode') { var d = store.get(K_DONE) || lastDone || {}; copy(d.code || '', (d.mode === 'solo' ? 'کد' : 'کلمه‌ی رمز') + ' کپی شد'); }
       else if (act === 'share') sharePartner();
@@ -656,12 +694,17 @@ window.addEventListener('popstate', function (e) {
   if (s.v === 'form' && !submitted) renderStep(step);
   else if (s.v === 'pay') renderPay();
   else if (s.v === 'safe') renderSafe();
+  else if (s.v === 'soal') renderSoal(s.c || '');
   else { saveDraft(true); renderHome(); }
 });
 window.addEventListener('pagehide', function () { if (!submitted && hasDraft()) saveDraft(true); });
 
 var initial = history.state && history.state.v;
-if (initial === 'pay' && (store.get(K_DONE))) renderPay();
+var soalCode = null;  // ?soal=<code>: the link at the end of the file
+try { var sp = new URLSearchParams(location.search); if (sp.has('soal')) soalCode = sp.get('soal') || ''; } catch (e) {}
+if (soalCode !== null) { history.replaceState({ v: 'soal', c: soalCode }, ''); renderSoal(soalCode); }
+else if (initial === 'soal') renderSoal(history.state.c || '');
+else if (initial === 'pay' && (store.get(K_DONE))) renderPay();
 else if (initial === 'safe') renderSafe();
 else if (initial === 'form' && hasDraft()) renderStep(step);
 else { history.replaceState({ v: 'home' }, ''); renderHome(); }
